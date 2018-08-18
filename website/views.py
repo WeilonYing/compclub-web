@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
 from django.db.models import Count
 from website.forms import EventForm, WorkshopForm, RegistrationForm
-from website.models import Event, Workshop
+from website.models import Event, Volunteer, Workshop
 
 
 def index(request):
@@ -66,6 +66,14 @@ def registration(request, event_id, slug):
         registration_form.fields['event'].initial = event
         context = {'registration_form': registration_form, 'event': event}
         return render(request, 'website/registration_form.html', context)
+
+@staff_member_required
+def volunteer_registration(request, event_id, slug):
+    event = get_object_or_404(Event, pk=event_id)
+    volunteer, created = Volunteer.objects.get_or_create(user=request.user)
+    volunteer.availability.add(event)
+    volunteer.save()
+    return redirect('website:event_page', slug=event.slug, event_id=event_id)
 
 
 @staff_member_required

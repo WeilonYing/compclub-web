@@ -21,5 +21,8 @@ urlpatterns = [
     # TODO add content to homepage
     # path('', views.index, name='index'),
     path('', views.event_index, name='index'),
-    path('events/<slug:slug>-<int:event_id>/registration', views.registration, name='registration')
+    path('events/<slug:slug>-<int:event_id>/registration', views.registration, name='registration'),
+    path('events/<slug:slug>-<int:event_id>/volunteer_registration',
+        views.volunteer_registration, 
+        name='volunteer_registration')
 ]
