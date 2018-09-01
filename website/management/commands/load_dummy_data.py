@@ -14,7 +14,6 @@ def local2utc(local_datetime: datetime) -> datetime:
 def make_event(name, days_from_now, n_week, workshop_time: time, description,
                prereq, period, location):
     '''Create event and associated weekly-occuring workshops
-
     Args:
         name: the name of the event
         days_from_now: the days between today and the first workshop
@@ -61,7 +60,8 @@ def make_event(name, days_from_now, n_week, workshop_time: time, description,
         workshops.append(Workshop(
             event=event,
             name=f'Workshop #{i+1}',
-            time=local2utc(w_time),
+            start_time= local2utc(w_time),
+            end_time= local2utc(w_time + timedelta(hours=2)),
             location=location
         ))
     for workshop in workshops:
