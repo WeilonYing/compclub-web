@@ -104,7 +104,8 @@ class Workshop(models.Model):
 
     def __str__(self):
         """Return a string representation of a workshop."""
-        return f"{self.event.name}: {self.name} ({self.time})"
+        format = "%Y-%m-%d %I:%M%p"
+        return f"{self.event.name}: {self.name} (Start: {self.start_time.strftime(format)}, End: {self.end_time.strftime(format)})"
 
 
 class VolunteerAssignment(models.Model):

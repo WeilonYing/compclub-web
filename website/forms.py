@@ -10,7 +10,7 @@ class DatePicker(DateInput):
 
 
 class DateTimePicker(DateTimeInput):
-    input_type = 'datetime-local'
+    input_type='datetime-local'
 
 
 class EventForm(ModelForm):
@@ -65,7 +65,8 @@ class WorkshopForm(ModelForm):
         exclude = ('event', 'available', 'assigned')
         help_texts = {'time': _('Must be in Sydney time')}
         widgets = {
-            'time': DateTimePicker(),
+            'start_time': DateTimePicker(),
+            'end_time': DateTimePicker(),
         }
 
 
