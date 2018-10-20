@@ -8,11 +8,11 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
-from django.db.models import Count
-from website.models import Event, Workshop, Volunteer
 from website.forms import (EventForm, RegistrationForm, VolunteerAssignForm,
                            WorkshopForm)
+from website.models import Event, Workshop
 from website.utils import generate_status_email
+
 
 def index(request):
     return render(request, 'website/index.html')
@@ -37,7 +37,8 @@ def event_page(request, event_id, slug):
         return redirect(
             'website:event_page', event_id=event.pk, slug=event.slug)
 
-    workshops = Workshop.objects.filter(event=event).order_by('date', 'start_time')
+    workshops = Workshop.objects.filter(event=event).order_by(
+        'date', 'start_time')
     template = loader.get_template('website/event.html')
     
     if request.user.is_authenticated:
@@ -156,6 +157,7 @@ def event_assign_volunteers(request, event_id, slug):
     context = {'event': event, 'workshops': tuples}
     return render(request, 'website/event_assign.html', context)
 
+
 def workshop_create(request, event_id, slug):
     if request.method == 'POST':
         workshop_form = WorkshopForm(request.POST, prefix='workshop_form')
@@ -166,7 +168,10 @@ def workshop_create(request, event_id, slug):
         workshop_form = WorkshopForm(prefix='workshop_form')
         workshop_form['event'].initial = get_object_or_404(Event, pk=event_id)
 
-    context = {'workshop_form': workshop_form, 'event': get_object_or_404(Event, pk=event_id)}
+    context = {
+        'workshop_form': workshop_form,
+        'event': get_object_or_404(Event, pk=event_id)
+    }
     return render(request, 'website/workshop_create.html', context)
 
 
