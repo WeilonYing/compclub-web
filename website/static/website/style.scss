@@ -316,7 +316,11 @@ a, a:visited, a:hover {
 
 .event-detail-card {
     @extend %event-card;
+<<<<<<< HEAD
     margin-top: 24px;
+=======
+
+>>>>>>> Implemented recurring events
 }
 
 // used by registration/login.html
