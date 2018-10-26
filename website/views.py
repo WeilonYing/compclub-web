@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
 from website.forms import (EventForm, RegistrationForm, VolunteerAssignForm,
                            WorkshopForm)
-from website.models import Event, Workshop
+from website.models import Event, Workshop, Volunteer
 from website.utils import generate_status_email
 
 
