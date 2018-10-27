@@ -69,6 +69,10 @@ def event_page(request, event_id, slug):
         }        
 
         return render(request, 'website/event.html', context)
+<<<<<<< HEAD
+=======
+
+>>>>>>> add redirect in post request
     else:
         context = {
             'event': event,
