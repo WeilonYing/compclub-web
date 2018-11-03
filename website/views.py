@@ -7,16 +7,9 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
-<<<<<<< HEAD
 from website.forms import (EventForm, RegistrationForm, VolunteerAssignForm,
                            WorkshopForm)
 from website.models import Event, Workshop, Volunteer
-=======
-
-from website.forms import (EventForm, RegistrationForm, VolunteerAssignForm,
-                           WorkshopForm)
-from website.models import Event, Workshop
->>>>>>> change
 from website.utils import generate_status_email
 
 
@@ -46,7 +39,6 @@ def event_page(request, event_id, slug):
     workshops = Workshop.objects.filter(event=event).order_by(
         'date', 'start_time')
     template = loader.get_template('website/event.html')
-<<<<<<< HEAD
     
     if request.user.is_authenticated:
         request_user = request.user
@@ -84,15 +76,6 @@ def event_page(request, event_id, slug):
         }        
             
         return HttpResponse(template.render(context, request))
-=======
-    context = {
-        'event': event,
-        'workshops': workshops,
-        'location': workshops[0].location if len(workshops) > 0 else "TBA",
-    }
-    return HttpResponse(template.render(context, request))
-
->>>>>>> change
 
 def registration(request, event_id, slug):
     event = get_object_or_404(Event, pk=event_id)
