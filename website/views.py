@@ -40,15 +40,15 @@ def event_page(request, event_id, slug):
         'date', 'start_time')
     template = loader.get_template('website/event.html')
     
+    # Volunteers can see the "Available" Column after login
     if request.user.is_authenticated:
         request_user = request.user
         request_volunteer = Volunteer.objects.get(user=request_user)
         available_list = []
-
         for workshop in workshops:
             if request_volunteer in workshop.available.all():
                 available_list.append(workshop.id)        
-
+    # After Clicking the button in "Available" Column
         if request.method == "POST":
             workshop_id = request.POST.get("workshop_id")
             selected_workshop = Workshop.objects.get(id=workshop_id)
