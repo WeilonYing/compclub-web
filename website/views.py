@@ -157,24 +157,6 @@ def event_assign_volunteers(request, event_id, slug):
     context = {'event': event, 'workshops': tuples}
     return render(request, 'website/event_assign.html', context)
 
-
-def workshop_create(request, event_id, slug):
-    if request.method == 'POST':
-        workshop_form = WorkshopForm(request.POST, prefix='workshop_form')
-        if workshop_form.is_valid():
-            workshop_form.save()
-            return redirect('website:event_page', slug=slug, event_id=event_id)
-    else:
-        workshop_form = WorkshopForm(prefix='workshop_form')
-        workshop_form['event'].initial = get_object_or_404(Event, pk=event_id)
-
-    context = {
-        'workshop_form': workshop_form,
-        'event': get_object_or_404(Event, pk=event_id)
-    }
-    return render(request, 'website/workshop_create.html', context)
-
-
 def workshop_create(request, event_id, slug):
     if request.method == 'POST':
         workshop_form = WorkshopForm(request.POST, prefix='workshop_form')
