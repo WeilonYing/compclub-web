@@ -12,6 +12,9 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader
+
+from smtplib import SMTPSenderRefused
+
 from website.forms import (EventForm, RegistrationForm, VolunteerAssignForm,
                            WorkshopForm)
 from website.models import Event, Workshop, Volunteer
@@ -174,8 +177,12 @@ def volunteer_status_email_preview(request, event_id, slug):
         try:
             send_mass_mail(emails)
             return redirect('website:event_index')
-        except BadHeaderError:
+        except BadHeaderError as e:
+            print(e)
             return HttpResponse('Invalid header found')
+        except SMTPSenderRefused as e:
+            print(e)
+            return HttpResponse('Failed to send email. The host may not have correctly configured the SMTP settings.')
     context = {'emails': emails}
     return render(request, 'website/volunteer_status_email_preview.html',
                   context)

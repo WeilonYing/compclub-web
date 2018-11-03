@@ -25,7 +25,6 @@ class Position(models.Model):
 
 
 class Volunteer(models.Model):
-<<<<<<< HEAD
     """Model representing volunteer type users."""
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name='volunteer')

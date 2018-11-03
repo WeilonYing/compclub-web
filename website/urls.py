@@ -45,7 +45,7 @@ urlpatterns = [
     # path('', views.index, name='index'),
     path('', views.event_index, name='index'), # homepage view
     path(
-        'events/<slug:slug>-<int:pk>/status-email-preview', # email preview page
+        'events/<slug:slug>-<int:event_id>/status-email-preview', # email preview page
         views.volunteer_status_email_preview,
         name='volunteer_email_preview'),
     path(
